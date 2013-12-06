@@ -1,0 +1,30 @@
+<h1>
+	<%= @project[:name] %>
+</h1>
+	<hr/>
+<div style="word-wrap: break-word;">
+	<h2>About This Project:</h2><br/><p> <%= @project[:description] %></p>
+	<hr/>
+	<h2>Project Goal:</h2></br> <h3><%= number_to_currency(@project.goal) %></h3>
+	<hr/>
+	</p>
+  <div class="total-pledges">
+	  <%= render :partial => 'total_pledges' %>
+  </div>
+</div>
+
+<p><% time_diff_components = Time.diff(@project[:starttime], @project[:endtime]) %>
+   Number of Days Left: <%= time_diff_components[:day] %> </h4>
+</p>
+
+<% if Time.now <= @project[:endtime] %>
+
+<div id="pledge-form-errors">
+  <%= render :partial => "pledges/pledge_form_errors" %>
+</div>
+
+<%= render 'pledges/pledge_form' %>
+
+<% else %>
+<p>This project has ended! </p>
+<% end %>

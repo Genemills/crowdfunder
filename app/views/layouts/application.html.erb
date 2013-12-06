@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "Codfunder" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+
+  <nav class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name">
+      <h1><%= link_to "Codfunder", root_url %></h1>
+    </li>
+  </ul>
+
+  <section class="top-bar-section">
+    <ul class="right">
+        <% if current_user %>
+          <li><%= link_to "Profile", user_path(current_user.id) %></li>
+          <li><%= link_to "Logout", :logout, method: :post %></li>
+        <% else %> 
+          <li><%= link_to "Register", new_user_path %> </li>
+          <li><%= link_to "Login", :login %></li>
+        <% end %>
+    </ul>
+
+    <ul class="left">
+      <li><%= link_to 'New Project', 'projects/new' %></li>
+    </ul>
+  </section>
+</nav>
+
+    <div class="container">
+      <div>
+        <% if flash[:notice] %>
+          <div class="notice"><%= flash[:notice] %></div>
+        <% end %>
+        <% if flash[:alert] %>
+          <div class="alert"><%= flash[:alert] %></div>
+        <% end %>
+      </div>
+
+    <%= yield %>
+    <%= javascript_include_tag "application" %>
+    </div>
+  </body>
+</html>
